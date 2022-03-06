@@ -1,6 +1,9 @@
+import dotenv from 'dotenv';
 import "reflect-metadata";
 import {createConnection} from "typeorm";
-import {User} from "./entity/User";
+import {User} from "./models/User";
+
+dotenv.config();
 
 createConnection().then(async connection => {
 

@@ -1,7 +1,3 @@
-import dotenv from 'dotenv'; //
-
-dotenv.config();
-
 module.exports = {
   type: 'postgres',
   host: process.env.DB_HOST,
@@ -21,7 +17,7 @@ module.exports = {
     "src/subscriber/**/*.ts"
   ],
   cli: {
-    entitiesDir: "src/entity",
+    entitiesDir: "src/models",
     migrationsDir: "src/migration",
     subscribersDir: "src/subscriber"
   }
