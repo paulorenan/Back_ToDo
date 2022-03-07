@@ -18,7 +18,7 @@ const createUser = async (req: Request, res: Response) => {
     };
     const token = createToken(user);
     console.log(token);
-    return res.status(201).json({...user, token});
+    return res.status(201).json({message: 'Usuário Criado com sucesso', token, user});
   } catch (err) {
     return res.status(400).json({
       error: err.message,
@@ -90,7 +90,7 @@ const getUserByEmailAndPassword = async (req: Request, res: Response) => {
     const result = await repo.getUserByEmailAndPassword(req.body.email, req.body.password);
     if (result) {
       const token = createToken(result);
-      return res.status(200).json({...result, token});
+      return res.status(200).json({message: 'Login Efetuado com sucesso', token, user: result});
     }
     return res.status(400).json({
       error: 'Invalid email or password',
