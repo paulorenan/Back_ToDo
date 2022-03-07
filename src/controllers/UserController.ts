@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { getCustomRepository, getRepository } from 'typeorm';
 import UserModel from '../models/UserModel';
 import UserRepository from '../repositories/UserRepository';
-import { createToken } from '../schemas/authentication';
+import { createToken, verifyToken } from '../schemas/authentication';
 
 const createUser = async (req: Request, res: Response) => {
   try {
@@ -27,16 +27,19 @@ const createUser = async (req: Request, res: Response) => {
 }
 
 const getUsers = async (req: Request, res: Response) => {
-  try
-  {
+  try {
+    const token = verifyToken(req.headers.authorization);
+    if (!token) {
+      return res.status(401).json({
+        error: 'Unauthorized',
+      });
+    }
     const repo = getRepository(UserModel);
     const result = await repo.find({
       select: ["id", "name", "email", "image", "createdAt", "updatedAt"],
     });
     return res.status(200).json(result);
-  }
-  catch(err)
-  {
+  } catch(err) {
     return res.status(400).json({
       error: err.message,
     });
@@ -44,15 +47,18 @@ const getUsers = async (req: Request, res: Response) => {
 }
 
 const getUserById = async (req: Request, res: Response) => {
-  try
-  {
+  try {
+    const token = verifyToken(req.headers.authorization);
+    if (!token) {
+      return res.status(401).json({
+        error: 'Unauthorized',
+      });
+    }
     const repo = getCustomRepository(UserRepository);
     const result = await repo.getUserById(req.params.id);
 
     return res.status(200).json(result);
-  }
-  catch(err)
-  {
+  } catch(err) {
     return res.status(400).json({
       error: err.message,
     });
@@ -60,15 +66,18 @@ const getUserById = async (req: Request, res: Response) => {
 }
 
 const getUsersWithTasks = async (req: Request, res: Response) => {
-  try
-  {
+  try {
+    const token = verifyToken(req.headers.authorization);
+    if (!token) {
+      return res.status(401).json({
+        error: 'Unauthorized',
+      });
+    }
     const repo = getCustomRepository(UserRepository);
     const result = await repo.getUsersWithTasks();
 
     return res.status(200).json(result);
-  }
-  catch(err)
-  {
+  } catch(err) {
     return res.status(400).json({
       error: err.message,
     });
@@ -76,8 +85,7 @@ const getUsersWithTasks = async (req: Request, res: Response) => {
 }
 
 const getUserByEmailAndPassword = async (req: Request, res: Response) => {
-  try
-  {
+  try {
     const repo = getCustomRepository(UserRepository);
     const result = await repo.getUserByEmailAndPassword(req.body.email, req.body.password);
     if (result) {
@@ -87,9 +95,7 @@ const getUserByEmailAndPassword = async (req: Request, res: Response) => {
     return res.status(400).json({
       error: 'Invalid email or password',
     });
-  }
-  catch(err)
-  {
+  } catch(err) {
     return res.status(400).json({
       error: err.message,
     });
