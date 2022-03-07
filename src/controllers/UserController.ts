@@ -8,9 +8,17 @@ const createUser = async (req: Request, res: Response) => {
   try {
     const repo = getRepository(UserModel);
     const result = await repo.save(req.body);
-    const token = createToken(result);
+    const user = {
+      id: result.id,
+      name: result.name,
+      email: result.email,
+      image: result.image,
+      createdAt: result.createdAt,
+      updatedAt: result.updatedAt,
+    };
+    const token = createToken(user);
     console.log(token);
-    return res.status(201).json({...result, token});
+    return res.status(201).json({...user, token});
   } catch (err) {
     return res.status(400).json({
       error: err.message,
@@ -23,7 +31,7 @@ const getUsers = async (req: Request, res: Response) => {
   {
     const repo = getRepository(UserModel);
     const result = await repo.find({
-      select: ["id", "name", "email", "createdAt", "updatedAt"],
+      select: ["id", "name", "email", "image", "createdAt", "updatedAt"],
     });
     return res.status(200).json(result);
   }

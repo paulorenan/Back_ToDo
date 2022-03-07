@@ -24,6 +24,12 @@ export default class User {
     nullable: false,
   })
   password: string;
+  
+  @Column({
+    type: 'varchar',
+    nullable: true,
+  })
+  image: string;
 
   @OneToMany(type => Task, task => task.user_id)
   tasks: Task[];

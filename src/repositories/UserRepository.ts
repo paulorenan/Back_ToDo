@@ -8,7 +8,7 @@ export default class UserRepository extends Repository<User> {
       where: {
         email,
       },
-      select: ["id", "name", "email", "createdAt", "updatedAt"],
+      select: ["id", "name", "email", "image", "createdAt", "updatedAt"],
     });
   }
   public async getUserById(id: string): Promise<User | undefined> {
@@ -16,25 +16,24 @@ export default class UserRepository extends Repository<User> {
       where: {
         id,
       },
-      select: ["id", "name", "email", "createdAt", "updatedAt"],
+      select: ["id", "name", "email", "image", "createdAt", "updatedAt"],
     });
   }
   public async getUserByEmailAndPassword(
     email: string,
     password: string
   ): Promise<User | undefined> {
-    // return the user but not the password
     return this.findOne({
       where: {
         email,
         password,
       },
-      select: ["id", "name", "email", "createdAt", "updatedAt"],
+      select: ["id", "name", "email", "image", "createdAt", "updatedAt"],
     });
   }
   public async getUsersWithTasks(): Promise<User[] | undefined> {
     return this.find({
-      select: ["id", "name", "email", "createdAt", "updatedAt"],
+      select: ["id", "name", "email", "image", "createdAt", "updatedAt"],
       relations: ["tasks"],
     });
   }
