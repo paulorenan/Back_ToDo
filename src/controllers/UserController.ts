@@ -2,12 +2,15 @@ import { Request, Response } from 'express';
 import { getCustomRepository, getRepository } from 'typeorm';
 import UserModel from '../models/UserModel';
 import UserRepository from '../repositories/UserRepository';
+import { createToken } from '../schemas/authentication';
 
 const createUser = async (req: Request, res: Response) => {
   try {
     const repo = getRepository(UserModel);
     const result = await repo.save(req.body);
-    return res.status(201).json(result);
+    const token = createToken(result);
+    console.log(token);
+    return res.status(201).json({...result, token});
   } catch (err) {
     return res.status(400).json({
       error: err.message,
@@ -64,9 +67,31 @@ const getUsersWithTasks = async (req: Request, res: Response) => {
   }
 }
 
+const getUserByEmailAndPassword = async (req: Request, res: Response) => {
+  try
+  {
+    const repo = getCustomRepository(UserRepository);
+    const result = await repo.getUserByEmailAndPassword(req.body.email, req.body.password);
+    if (result) {
+      const token = createToken(result);
+      return res.status(200).json({...result, token});
+    }
+    return res.status(400).json({
+      error: 'Invalid email or password',
+    });
+  }
+  catch(err)
+  {
+    return res.status(400).json({
+      error: err.message,
+    });
+  }
+}
+
 export default {
   createUser,
   getUsers,
   getUserById,
   getUsersWithTasks,
+  getUserByEmailAndPassword,
 };
