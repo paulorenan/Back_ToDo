@@ -32,4 +32,10 @@ export default class UserRepository extends Repository<User> {
       select: ["id", "name", "email", "createdAt", "updatedAt"],
     });
   }
+  public async getUsersWithTasks(): Promise<User[] | undefined> {
+    return this.find({
+      select: ["id", "name", "email", "createdAt", "updatedAt"],
+      relations: ["tasks"],
+    });
+  }
 }

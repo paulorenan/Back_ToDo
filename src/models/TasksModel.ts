@@ -18,11 +18,12 @@ export default class Task {
   })
   status: boolean;
 
-  @JoinColumn({ 
-    name: 'user_id',
-    referencedColumnName: 'id',
+  @ManyToOne(type => User, user => user.tasks)
+  @JoinColumn({ name: 'user_id' })
+  @Column({
+    type: 'varchar',
+    nullable: false,
   })
-  @ManyToOne(type => User, tasks => Task)
   user_id: number;
 
   @CreateDateColumn({name: 'created_at'})

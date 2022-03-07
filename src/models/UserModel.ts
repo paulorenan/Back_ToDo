@@ -1,4 +1,4 @@
-import { Entity, Column, Timestamp, CreateDateColumn, UpdateDateColumn, PrimaryGeneratedColumn, OneToMany, JoinColumn } from "typeorm";
+import { Entity, Column, Timestamp, CreateDateColumn, UpdateDateColumn, PrimaryGeneratedColumn, OneToMany } from "typeorm";
 import Task from "./TasksModel";
 
 @Entity('users')
@@ -25,7 +25,6 @@ export default class User {
   })
   password: string;
 
-  @JoinColumn({ name: 'user_id' })
   @OneToMany(type => Task, task => task.user_id)
   tasks: Task[];
 

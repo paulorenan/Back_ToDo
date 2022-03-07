@@ -48,8 +48,25 @@ const getUserById = async (req: Request, res: Response) => {
   }
 }
 
+const getUsersWithTasks = async (req: Request, res: Response) => {
+  try
+  {
+    const repo = getCustomRepository(UserRepository);
+    const result = await repo.getUsersWithTasks();
+
+    return res.status(200).json(result);
+  }
+  catch(err)
+  {
+    return res.status(400).json({
+      error: err.message,
+    });
+  }
+}
+
 export default {
   createUser,
   getUsers,
   getUserById,
+  getUsersWithTasks,
 };
