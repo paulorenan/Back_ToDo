@@ -40,7 +40,27 @@ const getTasks = async (req: Request, res: Response) => {
   }
 }
 
+const getTaskByUserId = async (req: Request, res: Response) => {
+  try {
+    const token = req.headers.authorization;
+    const tokenId = verifyToken(token);
+    if (!tokenId) {
+      return res.status(401).json({
+        error: 'Unauthorized',
+      });
+    }
+    const repo = getCustomRepository(TaskRepository);
+    const result = await repo.getTaskByUserId(tokenId.id);
+    return res.status(200).json(result);
+  } catch (err) {
+    return res.status(400).json({
+      error: err.message,
+    });
+  }
+}
+
 export default {
   createTask,
   getTasks,
+  getTaskByUserId,
 };

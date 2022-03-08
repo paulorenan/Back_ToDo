@@ -8,7 +8,6 @@ export default class TaskRepository extends Repository<Task> {
       where: {
         user_id,
       },
-      select: ["id", "description", "status", "createdAt", "updatedAt"],
     });
   }
   public async getTasks(): Promise<Task[] | undefined> {
