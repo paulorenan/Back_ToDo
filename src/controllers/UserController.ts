@@ -102,10 +102,31 @@ const getUserByEmailAndPassword = async (req: Request, res: Response) => {
   }
 }
 
+const getUserWithToken = async (req: Request, res: Response) => {
+  try {
+    const token = req.headers.authorization;
+    const tokenId = verifyToken(token);
+    if (!tokenId) {
+      return res.status(401).json({
+        error: 'Unauthorized',
+      });
+    }
+    const repo = getCustomRepository(UserRepository);
+    const result = await repo.getUserById(tokenId.id);
+    return res.status(200).json({message: 'Tudo Certo', token, user: result});
+  } catch(err) {
+    return res.status(400).json({
+      error: err.message,
+    });
+  }
+}
+
+
 export default {
   createUser,
   getUsers,
   getUserById,
   getUsersWithTasks,
   getUserByEmailAndPassword,
+  getUserWithToken,
 };

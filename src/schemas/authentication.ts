@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
+import { TokenInt } from '../interfaces/TokenInterface';
 
 dotenv.config();
 
@@ -10,12 +11,13 @@ const jwtConfig = {
 };
 
 const createToken = (user: any) => {
-  return jwt.sign({id: user.id, email: user.email}, secret, jwtConfig);
+  const token = jwt.sign({id: user.id, email: user.email}, secret, jwtConfig);
+  return token;
 }
 
-const verifyToken = (token: string) => {
+const verifyToken = (token: string): TokenInt | null => {
   try {
-    return jwt.verify(token, secret);
+    return jwt.verify(token, secret) as TokenInt;
   }
   catch(err) {
     return null;
