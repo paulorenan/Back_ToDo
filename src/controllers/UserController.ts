@@ -120,6 +120,44 @@ const getUserWithToken = async (req: Request, res: Response) => {
   }
 }
 
+const updateUser = async (req: Request, res: Response) => {
+  try {
+    const token = req.headers.authorization;
+    const tokenId = verifyToken(token);
+    if (!tokenId) {
+      return res.status(401).json({
+        error: 'Unauthorized',
+      });
+    }
+    const repo = getRepository(UserModel);
+    const result = await repo.update(tokenId.id, req.body);
+    return res.status(200).json({message: 'Usuário Atualizado com sucesso'});
+  } catch(err) {
+    return res.status(400).json({
+      error: err.message,
+    });
+  }
+}
+
+const deleteUser = async (req: Request, res: Response) => {
+  try {
+    const token = req.headers.authorization;
+    const tokenId = verifyToken(token);
+    if (!tokenId) {
+      return res.status(401).json({
+        error: 'Unauthorized',
+      });
+    }
+    const repo = getRepository(UserModel);
+    await repo.delete(tokenId.id);
+    return res.status(200).json({message: 'Usuário Deletado com sucesso'});
+  } catch(err) {
+    return res.status(400).json({
+      error: err.message,
+    });
+  }
+}
+
 
 export default {
   createUser,
@@ -128,4 +166,6 @@ export default {
   getUsersWithTasks,
   getUserByEmailAndPassword,
   getUserWithToken,
+  updateUser,
+  deleteUser,
 };
