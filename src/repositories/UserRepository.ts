@@ -11,7 +11,7 @@ export default class UserRepository extends Repository<User> {
       select: ["id", "name", "email", "image", "createdAt", "updatedAt"],
     });
   }
-  public async getUserById(id: string): Promise<User | undefined> {
+  public async getUserById(id: number): Promise<User | undefined> {
     return this.findOne({
       where: {
         id,

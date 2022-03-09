@@ -4,7 +4,7 @@ import Task from "./TasksModel";
 @Entity('users')
 export default class User {
   @PrimaryGeneratedColumn('increment')
-  id: string;
+  id: number;
 
   @Column({
     type: 'varchar',

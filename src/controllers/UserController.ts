@@ -54,7 +54,7 @@ const getUserById = async (req: Request, res: Response) => {
       });
     }
     const repo = getCustomRepository(UserRepository);
-    const result = await repo.getUserById(req.params.id);
+    const result = await repo.getUserById(Number(req.params.id));
 
     return res.status(200).json(result);
   } catch(err) {
