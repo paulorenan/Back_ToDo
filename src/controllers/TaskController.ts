@@ -66,8 +66,39 @@ const getTaskByUserId = async (req: Request, res: Response) => {
   }
 }
 
+const updateTask = async (req: Request, res: Response) => {
+  try {
+    const token = req.headers.authorization;
+    const tokenId = verifyToken(token);
+    if (!tokenId) {
+      return res.status(401).json({
+        error: 'Unauthorized',
+      });
+    }
+    const repo = getRepository(TasksModel);
+    const task = await repo.findOne(req.params.id);
+    if (!task) {
+      return res.status(404).json({
+        error: 'Task not found',
+      });
+    }
+    if (task.user_id !== tokenId.id) {
+      return res.status(401).json({
+        error: 'Unauthorized',
+      });
+    }
+    const result = await repo.update({ id: Number(req.params.id)}, req.body);
+    return res.status(200).json(result);
+  } catch (err) {
+    return res.status(400).json({
+      error: err.message,
+    });
+  }
+}
+
 export default {
   createTask,
   getTasks,
   getTaskByUserId,
+  updateTask,
 };
