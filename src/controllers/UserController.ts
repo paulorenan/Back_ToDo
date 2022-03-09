@@ -17,7 +17,6 @@ const createUser = async (req: Request, res: Response) => {
       updatedAt: result.updatedAt,
     };
     const token = createToken(user);
-    console.log(token);
     return res.status(201).json({message: 'Usuário Criado com sucesso', token, user});
   } catch (err) {
     return res.status(400).json({
