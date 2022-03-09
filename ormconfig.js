@@ -8,10 +8,10 @@ module.exports = {
   database: process.env.DB_USERNAME,
   logging: false,
   entities: [
-    "build/models/**/*.ts"
+    "build/models/**/*.js"
   ],
   migrations: [
-    "build/database/migration/**/*.ts"
+    "build/database/migration/**/*.js"
   ],
   subscribers: [
     "src/subscriber/**/*.ts"
