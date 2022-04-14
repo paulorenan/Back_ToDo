@@ -13,7 +13,7 @@ module.exports = {
   "paths": {
     "/user/": {
       "post": {
-        "description": "",
+        "description": "Create a new user",
         "parameters": [
           {
             "name": "body",
@@ -44,7 +44,7 @@ module.exports = {
         }
       },
       "get": {
-        "description": "",
+        "description": "Get all users",
         "parameters": [
           {
             "name": "authorization",
@@ -65,7 +65,7 @@ module.exports = {
         }
       },
       "put": {
-        "description": "",
+        "description": "Update a user",
         "parameters": [
           {
             "name": "authorization",
@@ -101,7 +101,7 @@ module.exports = {
         }
       },
       "delete": {
-        "description": "",
+        "description": "Delete a user",
         "parameters": [
           {
             "name": "authorization",
@@ -124,7 +124,7 @@ module.exports = {
     },
     "/user/task": {
       "get": {
-        "description": "",
+        "description": "Get a user with all his tasks",
         "parameters": [
           {
             "name": "authorization",
@@ -147,7 +147,7 @@ module.exports = {
     },
     "/user/{id}": {
       "get": {
-        "description": "",
+        "description": "Get a user",
         "parameters": [
           {
             "name": "id",
@@ -176,7 +176,7 @@ module.exports = {
     },
     "/task/": {
       "post": {
-        "description": "",
+        "description": "Post a task",
         "parameters": [
           {
             "name": "authorization",
@@ -209,7 +209,7 @@ module.exports = {
         }
       },
       "get": {
-        "description": "",
+        "description": "Get all tasks",
         "parameters": [
           {
             "name": "authorization",
@@ -232,7 +232,7 @@ module.exports = {
     },
     "/task/user": {
       "get": {
-        "description": "",
+        "description": "Get all tasks of a user",
         "parameters": [
           {
             "name": "authorization",
@@ -255,7 +255,7 @@ module.exports = {
     },
     "/task/{id}": {
       "put": {
-        "description": "",
+        "description": "Get a task",
         "parameters": [
           {
             "name": "id",
@@ -285,7 +285,7 @@ module.exports = {
         }
       },
       "delete": {
-        "description": "",
+        "description": "Delete a task",
         "parameters": [
           {
             "name": "id",
@@ -317,7 +317,7 @@ module.exports = {
     },
     "/login/": {
       "post": {
-        "description": "",
+        "description": "Do login with username and password",
         "parameters": [
           {
             "name": "body",
@@ -347,7 +347,7 @@ module.exports = {
     },
     "/load/": {
       "get": {
-        "description": "",
+        "description": "Check token and load user",
         "parameters": [
           {
             "name": "authorization",
