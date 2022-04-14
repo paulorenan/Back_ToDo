@@ -2,8 +2,8 @@ module.exports = {
   "swagger": "2.0",
   "info": {
     "version": "1.0.0",
-    "title": "REST API",
-    "description": ""
+    "title": "Back ToDo API",
+    "description": "BackEnd API for a ToDo list",
   },
   "host": "back2dolist.herokuapp.com",
   "basePath": "/",
