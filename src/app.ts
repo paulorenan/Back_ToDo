@@ -1,6 +1,8 @@
 import express from 'express';
 import routes from './routes';
 import cors from 'cors';
+import swaggerUi from 'swagger-ui-express';
+import swaggerFile from '../swagger_output.js';
 
 const app = express();
 
@@ -12,5 +14,6 @@ app.get('/', async (request, response) => {
 });
 
 app.use(routes);
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 export default app;

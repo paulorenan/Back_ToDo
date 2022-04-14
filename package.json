@@ -4,14 +4,16 @@
   "description": "Awesome project developed with TypeORM.",
   "type": "commonjs",
   "devDependencies": {
-    "@types/node": "^16.11.26",
-    "ts-node": "10.4.0",
-    "typescript": "4.5.2",
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
-    "@types/jsonwebtoken": "^8.5.8"
+    "@types/jsonwebtoken": "^8.5.8",
+    "@types/node": "^16.11.26",
+    "@types/swagger-ui-express": "^4.1.3",
+    "ts-node": "10.4.0",
+    "typescript": "4.5.2"
   },
   "dependencies": {
+    "and": "^0.0.3",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
@@ -19,12 +21,16 @@
     "nodemon": "^2.0.15",
     "pg": "^8.7.3",
     "reflect-metadata": "^0.1.13",
+    "swagger-autogen": "^2.21.0",
+    "swagger-express-ts": "^1.1.0",
+    "swagger-ui-express": "^4.3.0",
     "typeorm": "0.2.45"
   },
   "scripts": {
     "start": "node build/server.js",
     "build": "tsc",
     "dev": "nodemon --watch \"./src/**\" --ext \"ts,js\" --ignore \"src/**/*.spec.ts,src/**/*.json\" --exec \"ts-node src/server.ts\"",
-    "typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js"
+    "typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js",
+    "swagger-autogen": "node swagger.js"
   }
 }

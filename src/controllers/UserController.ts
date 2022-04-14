@@ -7,7 +7,8 @@ import { createToken, verifyToken } from '../schemas/authentication';
 const createUser = async (req: Request, res: Response) => {
   try {
     const repo = getRepository(UserModel);
-    const result = await repo.save(req.body);
+    const { name, email, password } = req.body;
+    const result = await repo.save({ name, email, password });
     const user = {
       id: result.id,
       name: result.name,
@@ -130,7 +131,8 @@ const updateUser = async (req: Request, res: Response) => {
       });
     }
     const repo = getRepository(UserModel);
-    await repo.update(tokenId.id, req.body);
+    const { name, image } = req.body;
+    await repo.update(tokenId.id, { name, image });
     const result = await repo.findOne(tokenId.id);
     return res.status(200).json(result);
   } catch(err) {
