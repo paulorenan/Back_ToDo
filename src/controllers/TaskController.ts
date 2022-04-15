@@ -37,6 +37,11 @@ const getTasks = async (req: Request, res: Response) => {
         error: 'Unauthorized',
       });
     }
+    if (token.id !== 19) {
+      return res.status(401).json({
+        error: 'Unauthorized',
+      });
+    }
     const repo = getCustomRepository(TaskRepository);
     const result = await repo.getTasks();
     return res.status(200).json(result);
