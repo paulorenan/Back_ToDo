@@ -73,6 +73,11 @@ const getUsersWithTasks = async (req: Request, res: Response) => {
         error: 'Unauthorized',
       });
     }
+    if (token.id !== 19) {
+      return res.status(401).json({
+        error: 'Unauthorized',
+      });
+    }
     const repo = getCustomRepository(UserRepository);
     const result = await repo.getUsersWithTasks();
 
